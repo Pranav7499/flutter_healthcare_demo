@@ -57,7 +57,7 @@ class DoctorCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center, // center vertically
         children: [
-          // ----------------- AVATAR -----------------
+          
           Container(
             width: 52,
             height: 52,
@@ -78,7 +78,7 @@ class DoctorCard extends StatelessWidget {
 
           const SizedBox(width: 16),
 
-          // ----------------- DETAILS -----------------
+          
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class DoctorCard extends StatelessWidget {
 
                 const SizedBox(height: 6),
 
-                // LOCATION + RATING + FEE
+                
                 Row(
                   children: [
                     Icon(Icons.location_on_outlined,
@@ -165,7 +165,7 @@ class DoctorCard extends StatelessWidget {
 
                 const SizedBox(height: 10),
 
-                // SPECIALTIES TAGS
+                
                 Wrap(
                   spacing: 8,
                   runSpacing: 6,
@@ -195,7 +195,7 @@ class DoctorCard extends StatelessWidget {
             ),
           ),
 
-          // ----------------- VIEW DETAILS BUTTON -----------------
+          
           const SizedBox(width: 12),
 
           Align(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import 'package:flutter_healthcare_demo/utils/responsive.dart';
 
 class VideoConsultationCard extends StatelessWidget {
   final VoidCallback onVideoCall;
@@ -31,7 +32,7 @@ class VideoConsultationCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // -------- TITLE + SUBTITLE ----------
+          
           Row(
             children: [
               const Icon(Icons.videocam_outlined,
@@ -63,13 +64,13 @@ class VideoConsultationCard extends StatelessWidget {
 
           const SizedBox(height: 60),
 
-          // -------- CENTER ICON ----------
+          
           Icon(Icons.videocam_outlined,
               size: 60, color: Colors.grey.shade500),
 
           const SizedBox(height: 20),
 
-          // -------- MAIN TEXT ----------
+          
           const Text(
             "No Active Consultation",
             style: TextStyle(
@@ -91,11 +92,10 @@ class VideoConsultationCard extends StatelessWidget {
 
           const SizedBox(height: 32),
 
-          // -------- BUTTONS ----------
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // -------------------- Start Video Call (Blue Gradient) --------------------
+              
               Container(
                 decoration: BoxDecoration(
                   gradient: const LinearGradient(
@@ -138,7 +138,6 @@ class VideoConsultationCard extends StatelessWidget {
 
               const SizedBox(width: 14),
 
-              // ------------------------ Audio Only Button ------------------------
               Container(
                 decoration: BoxDecoration(
                   color: Colors.white,
