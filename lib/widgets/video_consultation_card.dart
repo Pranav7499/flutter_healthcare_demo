@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_healthcare_demo/utils/responsive.dart';
+import 'package:flutter_healthcare_demo/utils/responsive.dart';
+import 'package:flutter_healthcare_demo/widgets/custom_button.dart';
 
 class VideoConsultationCard extends StatelessWidget {
   final VoidCallback onVideoCall;
@@ -15,49 +16,62 @@ class VideoConsultationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 26),
+      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 26),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
           BoxShadow(
             color: Colors.black12.withOpacity(0.05),
-            blurRadius: 20,
-            spreadRadius: 1,
-            offset: const Offset(0, 6),
+            blurRadius: 22,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.videocam_outlined,
-                  color: Colors.black87, size: 26),
+              const Icon(
+                Icons.videocam_outlined,
+                size: 26,
+                color: Colors.black87,
+              ),
               const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Video Consultation",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87,
+
+              
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Text(
+                      "Video Consultation",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black87,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Start or join a telemedicine consultation",
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 13,
+
+                    SizedBox(height: 4),
+
+                    Text(
+                      "Start or join a telemedicine consultation",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.black54,
+                      ),
+                      softWrap: true,
+                      overflow: TextOverflow.visible,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -65,119 +79,117 @@ class VideoConsultationCard extends StatelessWidget {
           const SizedBox(height: 60),
 
           
-          Icon(Icons.videocam_outlined,
-              size: 60, color: Colors.grey.shade500),
+          Center(
+            child: Icon(
+              Icons.videocam_outlined,
+              size: 60,
+              color: Colors.grey.shade400,
+            ),
+          ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 24),
 
           
-          const Text(
-            "No Active Consultation",
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-              color: Colors.black87,
+          const Center(
+            child: Text(
+              "No Active Consultation",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+                color: Colors.black87,
+              ),
             ),
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
 
-          const Text(
-            "Start a new consultation or join an existing one",
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.black54,
+          const Center(
+            child: Text(
+              "Start a new consultation or join an existing one",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black54,
+              ),
             ),
           ),
 
-          const SizedBox(height: 32),
+          const SizedBox(height: 36),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          
+          LayoutBuilder(
+            builder: (context, constraints) {
+              bool isMobile = constraints.maxWidth < 420;
+
+              if (isMobile) {
+                
+                return Column(
+                  children: [
+                    CustomButton(
+                      text: "Start Video Call",
+                      icon: Icons.videocam,
+                      onPressed: onVideoCall,
+                      height: 52,
+                      width: double.infinity,
+                      colors: const [
+                        Color(0xFF1D4ED8),
+                        Color(0xFF3B82F6),
+                      ],
+                    ),
+
+                    const SizedBox(height: 14),
+
+                    CustomButton(
+                      text: "Audio Only",
+                      icon: Icons.call,
+                      onPressed: onAudioCall,
+                      height: 52,
+                      width: double.infinity,
+                      colors: const [
+                        Colors.white,
+                        Colors.white,
+                      ],
+                      textColor: Colors.black87,
+                      outlineColor: Colors.grey,
+                    ),
+                  ],
+                );
+              }
+
               
-              Container(
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomButton(
+                    text: "Start Video Call",
+                    icon: Icons.videocam,
+                    onPressed: onVideoCall,
+                    height: 52,
+                    width: 220,
+                    colors: const [
                       Color(0xFF1D4ED8),
                       Color(0xFF3B82F6),
                     ],
                   ),
-                  borderRadius: BorderRadius.circular(14),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blue.withOpacity(0.25),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: ElevatedButton.icon(
-                  onPressed: onVideoCall,
-                  icon: const Icon(Icons.videocam, color: Colors.white, size: 20),
-                  label: const Text(
-                    "Start Video Call",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                ),
-              ),
 
-              const SizedBox(width: 14),
+                  const SizedBox(width: 16),
 
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: const Color(0xFFD1D5DB), width: 1.4),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12.withOpacity(0.05),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: OutlinedButton.icon(
-                  onPressed: onAudioCall,
-                  icon: Icon(
-                    Icons.call,
-                    color: Colors.grey.shade800,
-                    size: 20,
+                  CustomButton(
+                    text: "Audio Only",
+                    icon: Icons.call,
+                    onPressed: onAudioCall,
+                    height: 52,
+                    width: 180,
+                    colors: const [
+                      Colors.white,
+                      Colors.white,
+                    ],
+                    textColor: Colors.black87,
+                    outlineColor: Colors.grey,
                   ),
-                  label: Text(
-                    "Audio Only",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade900,
-                    ),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    side: BorderSide.none,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 22, vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+                ],
+              );
+            },
           ),
         ],
       ),

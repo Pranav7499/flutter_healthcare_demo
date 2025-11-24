@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_healthcare_demo/pages/appointments_page.dart';
+import 'package:flutter_healthcare_demo/pages/prescription_page.dart';
 // import 'package:flutter_healthcare_demo/pages/auth_page.dart';
 //import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
 import 'package:flutter_healthcare_demo/widgets/video_consultation_card.dart';
 import 'package:flutter_healthcare_demo/utils/responsive.dart';
+import 'package:flutter_healthcare_demo/pages/health_records_page.dart';
 
 
 void main() {
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const TestWidgetPage(),
+      home: const AppointmentsPage(),
  
       routes: {
         '/dashboard': (context) => const DashboardPage(),
@@ -46,16 +49,18 @@ class DashboardPage extends StatelessWidget {
 class TestWidgetPage extends StatelessWidget {
   const TestWidgetPage({super.key});
 
-  Widget _buildResponsiveCard(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: constraints.maxHeight,
-            ),
-            child: IntrinsicHeight(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF6F7FB),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
@@ -69,17 +74,10 @@ class TestWidgetPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF6F7FB),
-      body: _buildResponsiveCard(context),
+          );
+        },
+      ),
     );
   }
 }
+
