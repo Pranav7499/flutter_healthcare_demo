@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../widgets/custom_header.dart';
 import '../utils/app_responsive.dart';
@@ -13,9 +14,6 @@ class AppointmentsPage extends StatefulWidget {
 }
 
 class _AppointmentsPageState extends State<AppointmentsPage> {
-  DateTime _focusedDay = DateTime.now();
-DateTime? _selectedDay;
-
   int _selectedTab = 0;
 
   final List<String> _tabs = [
@@ -24,15 +22,16 @@ DateTime? _selectedDay;
     "Calendar View",
   ];
 
-
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
   @override
   Widget build(BuildContext context) {
     const double pageMaxWidth = 1200;
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF6F7FB),
-      body: SingleChildScrollView(
+    return Material(
+      color: Colors.transparent, // important!
+      child: SingleChildScrollView(
         padding: AppResponsive.pagePadding(context),
         child: Center(
           child: ConstrainedBox(
@@ -68,10 +67,10 @@ DateTime? _selectedDay;
 
                 const SizedBox(height: 30),
 
-                // ---------------- TAB CONTENT ----------------
+                // ---------------- CONTENT ----------------
                 _buildTabContent(),
 
-                const SizedBox(height: 80),
+                const SizedBox(height: 50),
               ],
             ),
           ),
@@ -80,7 +79,7 @@ DateTime? _selectedDay;
     );
   }
 
-  // ---------------- CONTENT HANDLER ----------------
+  /// ---------------- TAB CONTENT ----------------
   Widget _buildTabContent() {
     if (_selectedTab == 0) {
       return Center(
@@ -101,110 +100,71 @@ DateTime? _selectedDay;
     }
 
     // ---------------- CALENDAR VIEW ----------------
-    return _buildCalendarView();
-  }
-
-  // ---------------- CALENDAR VIEW WIDGET ----------------
-  Widget _buildCalendarView() {
-  return Container(
-    width: double.infinity, // <<< FULL WIDTH WHITE CARD
-    padding: const EdgeInsets.all(24),
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(16),
-      border: Border.all(color: Colors.grey.shade300),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black12.withOpacity(0.05),
-          blurRadius: 12,
-          offset: const Offset(0, 4),
-        ),
-      ],
-    ),
-
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start, // <<< LEFT ALIGN
-      children: [
-        const Text(
-          "Appointment Calendar",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12.withOpacity(0.05),
+            blurRadius: 6,
+            offset: const Offset(0, 3),
           ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          "View your appointments in calendar format",
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.grey.shade600,
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Appointment Calendar",
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-
-        const SizedBox(height: 20),
-
-        // >>> SMALL CALENDAR BOX
-        Container(
-          width: 380, // <<< SMALL CALENDAR
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(color: Colors.grey.shade200),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12.withOpacity(0.03),
-                blurRadius: 8,
-                offset: const Offset(0, 3),
-              ),
-            ],
+          const SizedBox(height: 6),
+          Text(
+            "View your appointments in calendar format",
+            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
           ),
-          child: TableCalendar(
-            firstDay: DateTime.utc(2010, 1, 1),
-            lastDay: DateTime.utc(2035, 12, 31),
+          const SizedBox(height: 20),
 
-            calendarFormat: CalendarFormat.month,
-
+          TableCalendar(
+            firstDay: DateTime.utc(2010),
+            lastDay: DateTime.utc(2040),
             focusedDay: _focusedDay,
-            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
             onDaySelected: (selected, focused) {
               setState(() {
                 _selectedDay = selected;
                 _focusedDay = focused;
               });
             },
-
-            daysOfWeekHeight: 22,
-            rowHeight: 36,
-
             headerStyle: HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
-              leftChevronIcon: const Icon(Icons.chevron_left, size: 20),
-              rightChevronIcon: const Icon(Icons.chevron_right, size: 20),
               titleTextStyle: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
+              leftChevronIcon: Icon(Icons.chevron_left),
+              rightChevronIcon: Icon(Icons.chevron_right),
             ),
-
             calendarStyle: CalendarStyle(
               todayDecoration: BoxDecoration(
                 color: Colors.blue.shade100,
                 shape: BoxShape.circle,
               ),
-              selectedDecoration: const BoxDecoration(
+              selectedDecoration: BoxDecoration(
                 color: Colors.blue,
                 shape: BoxShape.circle,
               ),
-              defaultTextStyle: const TextStyle(fontSize: 13),
-              weekendTextStyle: const TextStyle(fontSize: 13),
             ),
           ),
-        ),
-      ],
-    ),
-  );
-}
+        ],
+      ),
+    );
+  }
 }

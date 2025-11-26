@@ -5,7 +5,6 @@ import '../utils/app_responsive.dart';
 import '../widgets/stat_card_vertical.dart';
 import '../widgets/custom_tab.dart';
 
-
 class HealthRecordsPage extends StatefulWidget {
   const HealthRecordsPage({super.key});
 
@@ -14,7 +13,6 @@ class HealthRecordsPage extends StatefulWidget {
 }
 
 class _HealthRecordsPageState extends State<HealthRecordsPage> {
-  // demo counts
   final int _lab = 0;
   final int _imaging = 0;
   final int _vitals = 0;
@@ -22,7 +20,13 @@ class _HealthRecordsPageState extends State<HealthRecordsPage> {
   final int _consultNotes = 0;
 
   int _selectedTab = 0;
-  final List<String> _tabs = ['All Records', 'Verified Only', 'Timeline View'];
+
+  final List<String> _tabs = [
+    'All Records',
+    'Verified Only',
+    'Timeline View'
+  ];
+
   final List<int> _tabCounts = [0, 0, 0];
 
   final TextEditingController _searchController = TextEditingController();
@@ -46,14 +50,12 @@ class _HealthRecordsPageState extends State<HealthRecordsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // center and constrain to a comfortable width similar to screenshot
     const double pageMaxWidth = 1200;
     final double screenWidth = MediaQuery.of(context).size.width;
-    final bool isMobile = AppResponsive.isMobile(context);
 
-    return Scaffold(
-      backgroundColor: const Color(0xFFF6F7FB),
-      body: SingleChildScrollView(
+    return Material(
+      color: const Color(0xFFF6F7FB), // same background as before
+      child: SingleChildScrollView(
         padding: AppResponsive.pagePadding(context),
         child: Center(
           child: ConstrainedBox(
@@ -61,7 +63,7 @@ class _HealthRecordsPageState extends State<HealthRecordsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header with two action buttons (PageHeader handles responsive)
+                // ---------------- HEADER ----------------
                 PageHeader(
                   title: 'Health Records',
                   subtitle: 'Manage and view your medical records',
@@ -74,11 +76,11 @@ class _HealthRecordsPageState extends State<HealthRecordsPage> {
                   padding: const EdgeInsets.only(bottom: 20),
                 ),
 
-                // SEARCH + TYPE DROPDOWN (responsive)
+                // ---------------- SEARCH + DROPDOWN ----------------
                 LayoutBuilder(builder: (context, constraints) {
                   final bool narrow = constraints.maxWidth < 720;
+
                   if (narrow) {
-                    // stacked on narrow screens
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -89,85 +91,108 @@ class _HealthRecordsPageState extends State<HealthRecordsPage> {
                       ],
                     );
                   } else {
-                    // single row on wide screens
                     return Row(
                       children: [
-                        Expanded(flex: 3, child: _buildSearchField(width: constraints.maxWidth * 0.6)),
+                        Expanded(
+                          flex: 3,
+                          child: _buildSearchField(width: constraints.maxWidth * 0.6),
+                        ),
                         const SizedBox(width: 16),
-                        SizedBox(width: 160, child: _buildTypeDropdown(width: 160)),
-                        const SizedBox(height: 20),
+                        SizedBox(
+                          width: 160,
+                          child: _buildTypeDropdown(width: 160),
+                        ),
                       ],
                     );
                   }
                 }),
 
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
 
-                // Statistic cards (cards layout is responsive)
-                LayoutBuilder(builder: (context, constraints) {
-                  final double maxW = constraints.maxWidth;
-                  final double cardWidth = _cardWidthForRecords(maxW);
+                // ---------------- STAT CARDS ----------------
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    double maxW = constraints.maxWidth;
+                    double cardWidth = _cardWidthForRecords(maxW);
 
-                  return Wrap(
-                    spacing: 20,
-                    runSpacing: 20,
-                    children: [
-                      // _recordCard('Lab Results', _lab, Icons.science_outlined, Colors.blue, cardWidth),
-                      VerticalStatCard(
-  title: 'Lab Results',
-  count: _lab,
-  icon: Icons.science_outlined,
-  iconColor: Colors.blue,
-  width: cardWidth,
-),
-                     VerticalStatCard(
-  title: 'Medical Imaging',
-  count: _imaging,
-  icon: Icons.camera_alt_outlined,
-  iconColor: Colors.blue,
-  width: cardWidth,
-),
-                      VerticalStatCard(
-  title: 'Vital Signs',
-  count: _vitals,
-  icon: Icons.show_chart,
-  iconColor: Colors.blue,
-  width: cardWidth,
-),
-                     VerticalStatCard(
-  title: 'Medication History',
-  count: _medHistory,
-  icon: Icons.favorite_border,
-  iconColor: Colors.blue,
-  width: cardWidth,
-),
-                     VerticalStatCard(
-  title: 'Consultation Notes',
-  count: _consultNotes,
-  icon: Icons.medical_services_outlined,
-  iconColor: Colors.blue,
-  width: cardWidth,
-),
-                    ],
-                  );
-                }),
+                    return Wrap(
+  spacing: 20,
+  runSpacing: 20,
+  children: [
+    GestureDetector(
+      onTap: () => setState(() => _selectedType = 'Lab Results'),
+      child: VerticalStatCard(
+        title: 'Lab Results',
+        count: _lab,
+        icon: Icons.science_outlined,
+        iconColor: Colors.blue,
+        width: cardWidth,
+      ),
+    ),
+
+    GestureDetector(
+      onTap: () => setState(() => _selectedType = 'Medical Imaging'),
+      child: VerticalStatCard(
+        title: 'Medical Imaging',
+        count: _imaging,
+        icon: Icons.camera_alt_outlined,
+        iconColor: Colors.blue,
+        width: cardWidth,
+      ),
+    ),
+
+    GestureDetector(
+      onTap: () => setState(() => _selectedType = 'Vital Signs'),
+      child: VerticalStatCard(
+        title: 'Vital Signs',
+        count: _vitals,
+        icon: Icons.show_chart,
+        iconColor: Colors.blue,
+        width: cardWidth,
+      ),
+    ),
+
+    GestureDetector(
+      onTap: () => setState(() => _selectedType = 'Medication History'),
+      child: VerticalStatCard(
+        title: 'Medication History',
+        count: _medHistory,
+        icon: Icons.favorite_border,
+        iconColor: Colors.blue,
+        width: cardWidth,
+      ),
+    ),
+
+    GestureDetector(
+      onTap: () => setState(() => _selectedType = 'Consultation Notes'),
+      child: VerticalStatCard(
+        title: 'Consultation Notes',
+        count: _consultNotes,
+        icon: Icons.medical_services_outlined,
+        iconColor: Colors.blue,
+        width: cardWidth,
+      ),
+    ),
+  ],
+);
+
+                  },
+                ),
 
                 const SizedBox(height: 24),
 
-               
-TabToggle(
-  options: _tabs,
-  counts: _tabCounts,
-  selectedIndex: _selectedTab,
-  onSelected: (index) => setState(() => _selectedTab = index),
-  height: 42,     // tune to match your UI
-  fontSize: 13,   // tune to match your UI
-),
-
+                // ---------------- TABS ----------------
+                TabToggle(
+                  options: _tabs,
+                  counts: _tabCounts,
+                  selectedIndex: _selectedTab,
+                  onSelected: (index) => setState(() => _selectedTab = index),
+                  height: 42,
+                  fontSize: 13,
+                ),
 
                 const SizedBox(height: 28),
 
-                // Simple content placeholder
                 Center(
                   child: Text(
                     'No records yet. Add a record to get started.',
@@ -184,6 +209,7 @@ TabToggle(
     );
   }
 
+  // ---------------- SEARCH FIELD ----------------
   Widget _buildSearchField({required double width}) {
     return SizedBox(
       height: 48,
@@ -208,51 +234,52 @@ TabToggle(
     );
   }
 
+  // ---------------- DROPDOWN ----------------
   Widget _buildTypeDropdown({required double width}) {
     return SizedBox(
+      width: width,
       height: 48,
       child: DropdownButtonFormField<String>(
         value: _selectedType,
+        isExpanded: true,
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
           contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 0),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade200)),
-          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide(color: Colors.grey.shade200)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey.shade200),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: BorderSide(color: Colors.grey.shade200),
+          ),
         ),
-        items: <String>['All Types', 'Lab Results', 'Imaging', 'Vitals', 'Medication', 'Consultation']
-            .map((s) => DropdownMenuItem(value: s, child: Text(s)))
-            .toList(),
+        items: <String>[
+          'All Types',
+          'Lab Results',
+          'Medical Imaging',
+          'Vital Signs',
+          'Medication History',
+          'Consultation Notes'
+        ].map((s) => DropdownMenuItem(value: s, child: Text(s))).toList(),
         onChanged: (v) => setState(() => _selectedType = v ?? 'All Types'),
       ),
     );
   }
 
-  /// Calculates a comfortable width to show 5 cards in a single row on large screens,
-  /// 3 per row on medium (tablet), 2 per row when narrower, and 1 per row on mobile.
+  // ---------------- CARD WIDTH LOGIC ----------------
   double _cardWidthForRecords(double maxWidth) {
-    // spacing between cards is 20; we want to compute widths that look like screenshot
     if (maxWidth >= 1200) {
-      // five cards across
-      final totalSpacing = 20.0 * (5 - 1);
-      return (maxWidth - totalSpacing) / 5.4;
+      return (maxWidth - 20 * 4) / 5.65;
     } else if (maxWidth >= 900) {
-      // four across
-      final totalSpacing = 20.0 * (4 - 1);
-      return (maxWidth - totalSpacing) / 4;
+      return (maxWidth - 20 * 3) / 4;
     } else if (maxWidth >= 640) {
-      // three across (tablet)
-      final totalSpacing = 20.0 * (3 - 1);
-      return (maxWidth - totalSpacing) / 3;
+      return (maxWidth - 20 * 2) / 3;
     } else if (maxWidth >= 420) {
-      // two across (small tablet / large phone)
-      final totalSpacing = 20.0 * (2 - 1);
-      return (maxWidth - totalSpacing) / 2;
+      return (maxWidth - 20) / 2;
     } else {
-      // mobile: full width
       return maxWidth;
     }
-  } 
-
-
+  }
 }
