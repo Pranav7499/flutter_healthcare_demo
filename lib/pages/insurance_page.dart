@@ -36,7 +36,8 @@ class _InsuranceManagementPageState extends State<InsuranceManagementPage> {
     return Material(
       color: Colors.transparent,
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 28),
+        //padding: const EdgeInsets.symmetric(vertical: 28),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 28),
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: maxWidth),
