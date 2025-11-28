@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
-import 'package:flutter_healthcare_demo/pages/employee_management_page';
+import 'package:flutter_healthcare_demo/pages/employee_management_page.dart';
 import 'package:flutter_healthcare_demo/pages/insurance_page.dart';
 import 'package:flutter_healthcare_demo/pages/prescription_page.dart';
+import 'package:flutter_healthcare_demo/pages/programs_management_page.dart';
 // import 'package:flutter_healthcare_demo/pages/auth_page.dart';
 //import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
 import 'package:flutter_healthcare_demo/widgets/video_consultation_card.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const EmployeeManagementPage(),
+      home: const ProgramsManagementPage(),
  
       routes: {
         '/dashboard': (context) => const DashboardPage(),
