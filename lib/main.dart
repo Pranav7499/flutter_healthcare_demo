@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
+import 'package:flutter_healthcare_demo/pages/doctor_verfication_portal.dart';
 import 'package:flutter_healthcare_demo/pages/employee_management_page.dart';
 import 'package:flutter_healthcare_demo/pages/insurance_page.dart';
 import 'package:flutter_healthcare_demo/pages/prescription_page.dart';
 import 'package:flutter_healthcare_demo/pages/programs_management_page.dart';
+import 'package:flutter_healthcare_demo/pages/providers_management_page.dart';
+import 'package:flutter_healthcare_demo/pages/test_heartbeat.dart';
+import 'package:flutter_healthcare_demo/pages/test_stethoscope.dart';
 // import 'package:flutter_healthcare_demo/pages/auth_page.dart';
 //import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
 import 'package:flutter_healthcare_demo/widgets/video_consultation_card.dart';
 import 'package:flutter_healthcare_demo/utils/responsive.dart';
 import 'package:flutter_healthcare_demo/pages/health_records_page.dart';
+import 'package:flutter_healthcare_demo/pages/system_setting_page.dart';
+import 'package:flutter_healthcare_demo/pages/analytics_dashboard_page.dart';
+import 'package:flutter_healthcare_demo/pages/test_heartbeat.dart';
+import 'package:flutter_healthcare_demo/pages/doctor_login_loader.dart';
+import 'package:flutter_healthcare_demo/pages/test_patient_breath.dart';
+import 'package:flutter_healthcare_demo/pages/test_corporate.dart';
 
 
 void main() {
@@ -27,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const ProgramsManagementPage(),
+      home: const TestStethoscopePage(),
  
       routes: {
         '/dashboard': (context) => const DashboardPage(),
