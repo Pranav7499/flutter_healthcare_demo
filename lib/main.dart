@@ -8,6 +8,7 @@ import 'package:flutter_healthcare_demo/pages/programs_management_page.dart';
 import 'package:flutter_healthcare_demo/pages/providers_management_page.dart';
 import 'package:flutter_healthcare_demo/pages/test_heartbeat.dart';
 import 'package:flutter_healthcare_demo/pages/test_stethoscope.dart';
+import 'package:flutter_healthcare_demo/widgets/patient_breath_card.dart';
 // import 'package:flutter_healthcare_demo/pages/auth_page.dart';
 //import 'package:flutter_healthcare_demo/pages/doctor_list_page.dart';
 import 'package:flutter_healthcare_demo/widgets/video_consultation_card.dart';
@@ -19,6 +20,8 @@ import 'package:flutter_healthcare_demo/pages/test_heartbeat.dart';
 import 'package:flutter_healthcare_demo/pages/doctor_login_loader.dart';
 import 'package:flutter_healthcare_demo/pages/test_patient_breath.dart';
 import 'package:flutter_healthcare_demo/pages/test_corporate.dart';
+import 'package:flutter_healthcare_demo/widgets/healthcare_loaders.dart';
+import 'package:flutter_healthcare_demo/pages/loader_preview_page.dart';
 
 
 void main() {
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const TestStethoscopePage(),
+      home: const LoaderPreviewPage(),
  
       routes: {
         '/dashboard': (context) => const DashboardPage(),
